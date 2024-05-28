@@ -1,8 +1,10 @@
 import { auth } from '@/auth';
+import { generateApiKey } from '@/lib/utils';
 import React from 'react';
 
 const AppPage = async () => {
   const session = await auth();
+
   return (
     <section className='my-5'>
       <h1 className='text-2xl'>Hello {session?.user?.name}</h1>

@@ -22,6 +22,7 @@ model User {
   accounts      Account[]
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+  apiKey        String?
 }
 
 model Account {
