@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Noto_Sans } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
 
-const inter = Inter({ subsets: ['latin'] });
+const notoSans = Noto_Sans({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Quick CMS',
@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={inter.className}>
+      <body className={notoSans.className}>
         <ThemeProvider
           attribute='class'
           defaultTheme='dark'

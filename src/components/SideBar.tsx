@@ -35,7 +35,7 @@ const SideBar = () => {
         </ResizablePanel>
         <ResizableHandle />
         <ResizablePanel defaultSize={50}>
-          <div className='my-2'>
+          <div className='my-2 flex flex-col'>
             <Link href='/app/page-builder'>
               <Button
                 variant='link'
