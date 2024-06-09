@@ -1,4 +1,6 @@
 import SideBar from '@/components/SideBar';
+import { PageBuilderStoreProvider } from '@/store/pagebuilder-store-provider';
+import { Toaster } from 'react-hot-toast';
 
 export default function AppLayout({
   children,
@@ -6,13 +8,16 @@ export default function AppLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <section className='grid grid-cols-12'>
-      <div className='col-span-2'>
-        <SideBar />
-      </div>
-      <main className='px-4 col-span-10 h-screen overflow-y-scroll overflow-x-hidden'>
-        {children}
-      </main>
-    </section>
+    <PageBuilderStoreProvider>
+      <section className='grid grid-cols-12'>
+        <div className='col-span-2'>
+          <SideBar />
+        </div>
+        <main className='px-4 col-span-10 h-screen overflow-y-scroll overflow-x-hidden'>
+          {children}
+          <Toaster />
+        </main>
+      </section>
+    </PageBuilderStoreProvider>
   );
 }

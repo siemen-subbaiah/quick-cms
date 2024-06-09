@@ -53,3 +53,31 @@ model VerificationToken {
 
   @@id([identifier, token])
 }
+
+model Page {
+  id              Int      @id @default(sequence())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  createdUserId   String
+  createdUserName String
+  displayName     String
+  apiName         String
+  description     String
+  fields          Field[]
+}
+
+model Field {
+  id              Int      @id @default(sequence())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  createdUserId   String
+  createdUserName String
+  fieldType       Int
+  fieldName       String
+  defaultValue    String?
+  isRequired      Boolean
+  isShortText     Boolean?
+  value           String?
+  page            Page     @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  pageId          Int
+}

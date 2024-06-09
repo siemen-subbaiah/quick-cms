@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Field" ALTER COLUMN "defaultValue" DROP NOT NULL;
+ALTER TABLE "Field" ALTER COLUMN "isShortText" DROP NOT NULL;
