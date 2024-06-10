@@ -1,5 +1,10 @@
-import { MdDateRange, MdEmail, MdImage, MdTextFields } from 'react-icons/md';
-import { RxSwitch } from 'react-icons/rx';
+import {
+  MdDateRange,
+  MdEmail,
+  MdImage,
+  MdOutlineToggleOn,
+  MdTextFields,
+} from 'react-icons/md';
 import { TbSquareNumber1Filled } from 'react-icons/tb';
 
 export const fields = [
@@ -11,7 +16,7 @@ export const fields = [
   {
     id: 2,
     name: 'Boolean',
-    icon: RxSwitch,
+    icon: MdOutlineToggleOn,
   },
   {
     id: 3,

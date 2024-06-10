@@ -1,27 +1,27 @@
 export const dynamic = 'force-dynamic';
 
 import { listPages } from '@/lib/utils';
-import Link from 'next/link';
 import React from 'react';
-import { Button } from '../ui/button';
+import Image from 'next/image';
+import ContentNavItemList from './ContentNavItemList';
 
 const ContentNavItems = async () => {
   const pages = await listPages();
+
   return (
     <>
-      {pages.map((page) => {
-        return (
-          <Link
-            className='my-0'
-            key={page.id}
-            href={`/app/content-builder/${page.apiName}`}
-          >
-            <Button className={`text-white relative right-4`} variant='link'>
-              {page.displayName}
-            </Button>
-          </Link>
-        );
-      })}
+      {pages.length >= 1 &&
+        pages.map((page) => <ContentNavItemList key={page.id} page={page} />)}
+      {pages.length === 0 && (
+        <section className='pl-8'>
+          <Image
+            src='/empty-content-state.svg'
+            alt='empty-state'
+            width='150'
+            height='150'
+          />
+        </section>
+      )}
     </>
   );
 };

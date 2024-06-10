@@ -1,14 +1,13 @@
 'use client';
 
 import React, { useState } from 'react';
-import { GoPlus } from 'react-icons/go';
 import { Drawer, DrawerContent } from '@/components/ui/drawer';
 import { Button } from '../ui/button';
 import PageBuilderForm from './PageBuilderForm';
 import DataTypeList from './DataTypeList';
 import { usePageBuilderStore } from '@/store/pagebuilder-store-provider';
 import FieldSetup from './FieldSetup';
-import { MdEdit } from 'react-icons/md';
+import { MdAdd, MdEdit } from 'react-icons/md';
 
 const GlobalDrawer = (drawerProps: DrawerProps) => {
   const { showFieldSelection, fieldType, proceedToFieldSelection } =
@@ -20,7 +19,7 @@ const GlobalDrawer = (drawerProps: DrawerProps) => {
     <Drawer dismissible={false} open={open}>
       {drawerProps.launchMode === 'create' && (
         <Button onClick={() => setOpen(true)}>
-          <GoPlus fontSize='1.5rem' className='mr-2' />
+          <MdAdd className='mr-2 h-6 w-6' />
           Create
         </Button>
       )}
@@ -31,7 +30,7 @@ const GlobalDrawer = (drawerProps: DrawerProps) => {
             setOpen(true);
           }}
         >
-          <GoPlus fontSize='1.5rem' className='mr-2' />
+          <MdAdd className='mr-2 h-6 w-6' />
           Add Another Field
         </Button>
       )}
@@ -43,14 +42,15 @@ const GlobalDrawer = (drawerProps: DrawerProps) => {
         />
       )}
       {drawerProps.launchMode === 'edit-form' && (
-        <MdEdit
-          fontSize='1.25rem'
-          style={{ cursor: 'pointer' }}
-          onClick={() => {
-            proceedToFieldSelection(false);
-            setOpen(true);
-          }}
-        />
+        <Button variant='outline' size='icon'>
+          <MdEdit
+            className='h-4 w-4'
+            onClick={() => {
+              proceedToFieldSelection(false);
+              setOpen(true);
+            }}
+          />
+        </Button>
       )}
       <DrawerContent className='p-5 mt-5'>
         {/* non edit launch! */}

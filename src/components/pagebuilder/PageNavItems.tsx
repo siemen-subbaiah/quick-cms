@@ -1,14 +1,19 @@
 'use client';
 
 import React from 'react';
-import { MdOutlineAccountCircle, MdOutlineBuildCircle } from 'react-icons/md';
-import { GoGear } from 'react-icons/go';
+import {
+  MdOutlineAccountCircle,
+  MdOutlineBuildCircle,
+  MdSettings,
+} from 'react-icons/md';
 import { Button } from '../ui/button';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useTheme } from 'next-themes';
 
 const PageNavItems = () => {
   const pathname = usePathname();
+  const { theme } = useTheme();
 
   return (
     <div className='my-2 flex flex-col'>
@@ -16,10 +21,14 @@ const PageNavItems = () => {
         <Button
           variant='link'
           className={`${
-            pathname.includes('page-builder') ? 'text-primary' : 'text-white'
-          } relative right-4`}
+            pathname.includes('page-builder')
+              ? 'text-primary'
+              : theme === 'dark'
+              ? 'text-white'
+              : 'text-dark'
+          } relative right-4 `}
         >
-          <MdOutlineBuildCircle fontSize='1.5rem' className='mr-2' />
+          <MdOutlineBuildCircle className='mr-2 h-6 w-6' />
           Page Builder
         </Button>
       </Link>
@@ -27,10 +36,14 @@ const PageNavItems = () => {
         <Button
           variant='link'
           className={`${
-            pathname === '/app/settings' ? 'text-primary' : 'text-white'
+            pathname === '/app/settings'
+              ? 'text-primary'
+              : theme === 'dark'
+              ? 'text-white'
+              : 'text-dark'
           } relative right-4`}
         >
-          <GoGear fontSize='1.5rem' className='mr-2' />
+          <MdSettings className='mr-2 h-6 w-6' />
           Settings
         </Button>
       </Link>
@@ -38,10 +51,14 @@ const PageNavItems = () => {
         <Button
           variant='link'
           className={`${
-            pathname === '/app/account' ? 'text-primary' : 'text-white'
+            pathname === '/app/account'
+              ? 'text-primary'
+              : theme === 'dark'
+              ? 'text-white'
+              : 'text-dark'
           } relative right-4`}
         >
-          <MdOutlineAccountCircle fontSize='1.5rem' className='mr-2' />
+          <MdOutlineAccountCircle className='mr-2 h-6 w-6' />
           Account
         </Button>
       </Link>

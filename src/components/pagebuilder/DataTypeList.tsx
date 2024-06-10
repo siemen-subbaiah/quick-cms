@@ -1,9 +1,12 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { fields } from '@/constants';
-import { IoMdArrowDropright } from 'react-icons/io';
 import { Button } from '../ui/button';
-import { MdOutlineCancel, MdOutlineKeyboardArrowLeft } from 'react-icons/md';
+import {
+  MdArrowRight,
+  MdOutlineCancel,
+  MdOutlineKeyboardArrowLeft,
+} from 'react-icons/md';
 import { usePageBuilderStore } from '@/store/pagebuilder-store-provider';
 
 const DataTypeList = ({
@@ -35,7 +38,7 @@ const DataTypeList = ({
             <CardTitle>Select Fields</CardTitle>
             {launchMode === 'add' && (
               <MdOutlineCancel
-                fontSize='1.5rem'
+                className='h-6 w-6'
                 style={{ cursor: 'pointer' }}
                 onClick={() => setOpen(false)}
               />
@@ -58,7 +61,7 @@ const DataTypeList = ({
                     <field.icon />
                     <p className='text-sm'>{field.name}</p>
                   </div>
-                  <IoMdArrowDropright />
+                  <MdArrowRight />
                 </div>
               </section>
             );

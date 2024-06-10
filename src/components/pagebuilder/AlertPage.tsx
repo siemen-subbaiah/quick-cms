@@ -49,11 +49,9 @@ const AlertPage = ({ pageId }: { pageId: number }) => {
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <MdDelete
-          onClick={() => setOpen(true)}
-          fontSize='1.3rem'
-          style={{ cursor: 'pointer' }}
-        />
+        <Button variant='outline' size='icon'>
+          <MdDelete onClick={() => setOpen(true)} className='h-4 w-4' />
+        </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
