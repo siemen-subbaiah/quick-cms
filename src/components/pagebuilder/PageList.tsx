@@ -11,7 +11,10 @@ const PageList = ({ pageProps }: { pageProps: Page }) => {
           <CardTitle className='text-2xl'>{pageProps.displayName} </CardTitle>
         </CardHeader>
         <CardContent>
-          <p>API name : {pageProps.apiName}</p>
+          <p>API ID : {pageProps.apiName}</p>
+          <p>
+            Created At : {new Date(pageProps.createdAt).toLocaleDateString()}
+          </p>
         </CardContent>
       </Card>
     </Link>

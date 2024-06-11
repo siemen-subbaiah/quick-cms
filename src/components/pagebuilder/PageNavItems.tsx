@@ -47,7 +47,7 @@ const PageNavItems = () => {
           Settings
         </Button>
       </Link>
-      <Link href='/app/account'>
+      {/* <Link href='/app/account'>
         <Button
           variant='link'
           className={`${
@@ -61,7 +61,7 @@ const PageNavItems = () => {
           <MdOutlineAccountCircle className='mr-2 h-6 w-6' />
           Account
         </Button>
-      </Link>
+      </Link> */}
     </div>
   );
 };
