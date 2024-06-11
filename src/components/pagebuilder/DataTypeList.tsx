@@ -4,7 +4,7 @@ import { fields } from '@/constants';
 import { Button } from '../ui/button';
 import {
   MdArrowRight,
-  MdOutlineCancel,
+  MdClose,
   MdOutlineKeyboardArrowLeft,
 } from 'react-icons/md';
 import { usePageBuilderStore } from '@/store/pagebuilder-store-provider';
@@ -37,11 +37,13 @@ const DataTypeList = ({
           <div className='flex justify-between items-center'>
             <CardTitle>Select Fields</CardTitle>
             {launchMode === 'add' && (
-              <MdOutlineCancel
-                className='h-6 w-6'
-                style={{ cursor: 'pointer' }}
-                onClick={() => setOpen(false)}
-              />
+              <Button variant='outline' size='icon'>
+                <MdClose
+                  className='h-6 w-6'
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => setOpen(false)}
+                />
+              </Button>
             )}
           </div>
         </CardHeader>
@@ -58,7 +60,7 @@ const DataTypeList = ({
               >
                 <div className='flex items-center justify-between'>
                   <div className='flex items-center gap-2'>
-                    <field.icon />
+                    <field.icon className={`${field.id === 4 && 'h-6 w-6'}`} />
                     <p className='text-sm'>{field.name}</p>
                   </div>
                   <MdArrowRight />

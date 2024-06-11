@@ -7,12 +7,12 @@ import {
   MdDateRange,
   MdEmail,
   MdImage,
+  MdOutline123,
   MdOutlineToggleOn,
   MdTextFields,
 } from 'react-icons/md';
 import GlobalDrawer from '../GlobalDrawer';
 import AlertField from './AlertField';
-import { TbSquareNumber1Filled } from 'react-icons/tb';
 
 export const columns: ColumnDef<Field>[] = [
   {
@@ -34,7 +34,7 @@ export const columns: ColumnDef<Field>[] = [
           <MdTextFields className='h-4 w-4' />
         )}
         {row.getValue('fieldType') === 4 && (
-          <TbSquareNumber1Filled className='h-4 w-4' />
+          <MdOutline123 className='h-6 w-6' />
         )}
         {row.getValue('fieldType') === 5 && <MdEmail className='h-4 w-4' />}
         {row.getValue('fieldType') === 6 && <MdDateRange className='h-4 w-4' />}

@@ -2,10 +2,10 @@ import {
   MdDateRange,
   MdEmail,
   MdImage,
+  MdOutline123,
   MdOutlineToggleOn,
   MdTextFields,
 } from 'react-icons/md';
-import { TbSquareNumber1Filled } from 'react-icons/tb';
 
 export const fields = [
   {
@@ -26,7 +26,7 @@ export const fields = [
   {
     id: 4,
     name: 'Number',
-    icon: TbSquareNumber1Filled,
+    icon: MdOutline123,
   },
   {
     id: 5,
