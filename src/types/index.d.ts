@@ -40,3 +40,13 @@ interface Field {
   value: string | null;
   pageId: number;
 }
+
+interface StateField {
+  id: number;
+  fieldType: number;
+  fieldName: string;
+  value: string;
+  defaultValue: string | null;
+  isRequired: boolean;
+  isShortText: boolean | null;
+}

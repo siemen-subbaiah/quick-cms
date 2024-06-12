@@ -15,11 +15,11 @@ const ContentNavItemList = ({ page }: { page: Page }) => {
     <Link
       className='my-0'
       key={page.id}
-      href={`/app/content-builder/${page.apiName}`}
+      href={`/app/content-builder/${page.apiName}/${page.id}`}
     >
       <Button
         className={`${
-          pathname === `/app/content-builder/${page.apiName}`
+          pathname === `/app/content-builder/${page.apiName}/${page.id}`
             ? 'text-primary'
             : theme === 'dark'
             ? 'text-white'
