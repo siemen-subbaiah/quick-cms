@@ -63,6 +63,7 @@ model Page {
   displayName     String
   apiName         String
   description     String
+  isPublished     Boolean?
   fields          Field[]
 }
 

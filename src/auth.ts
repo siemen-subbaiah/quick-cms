@@ -17,6 +17,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       });
 
       if (!checkIfAPIKeyExists?.apiKey) {
+        const newKey = generateApiKey();
         await prisma.user.update({
           where: {
             id: user?.id,
@@ -25,16 +26,27 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             apiKey: generateApiKey(),
           },
         });
+        user.apiKey = newKey;
+      } else {
+        user.apiKey = checkIfAPIKeyExists.apiKey;
       }
       return true;
     },
 
-    async session({ session, token }) {
+    async jwt({ token, user }) {
+      if (user) {
+        token.apiKey = user.apiKey;
+      }
+      return token;
+    },
+
+    async session({ session, token, user }) {
       return {
         ...session,
         user: {
           ...session.user,
           id: token.sub,
+          apiKey: token.apiKey,
         },
       };
     },
