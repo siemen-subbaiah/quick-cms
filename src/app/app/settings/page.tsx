@@ -1,6 +1,13 @@
 import { auth, signOut } from '@/auth';
-import CopyAPIKey from '@/components/CopyAPIKey';
+import CopyAPIKey from '@/components/settings/CopyAPIKey';
 import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import Link from 'next/link';
 import React from 'react';
 
@@ -16,26 +23,30 @@ const SettingsPage = async () => {
         </div>
 
         <Link href='/app/settings/api-permissions'>
-          <div className='border p-4 rounded-sm my-5 hover:bg-primary-foreground transition-all'>
-            <h1 className='text-2xl'>API Permissions</h1>
-            <p className='mt-2'>
-              Easily Manage the API endpoints for your pages. Once enabled, you
-              can view and manage your page content via the API.
-            </p>
-          </div>
+          <Card className='my-5 hover:bg-primary-foreground transition-all'>
+            <CardHeader>
+              <CardTitle>API Permissions</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <CardDescription>
+                Easily Manage the API endpoints for your pages. Once enabled,
+                you can view and manage your page content via the API.
+              </CardDescription>
+            </CardContent>
+          </Card>
         </Link>
         <Link href='/app/settings/webhooks'>
-          <div className='border p-4 rounded-sm my-5 hover:bg-primary-foreground transition-all'>
-            <h1 className='text-2xl'>Web Hooks</h1>
-            <p className='mt-2'>
-              Easily integrate your favorite deployment services like Netlify
-              and Vercel by adding their build hook URLs.
-              {/* Whenever a page entry
-              is added or updated, our system will automatically trigger the
-              webhook, ensuring your site stays up-to-date with the latest
-              content changes. */}
-            </p>
-          </div>
+          <Card className='my-5 hover:bg-primary-foreground transition-all'>
+            <CardHeader>
+              <CardTitle>Web Hooks</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <CardDescription>
+                Easily integrate your favorite deployment services like Netlify
+                and Vercel by adding their build hook URLs.
+              </CardDescription>
+            </CardContent>
+          </Card>
         </Link>
       </section>
       <section className='my-2'>

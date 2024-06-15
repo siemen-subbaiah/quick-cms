@@ -82,3 +82,14 @@ model Field {
   page            Page     @relation(fields: [pageId], references: [id], onDelete: Cascade)
   pageId          Int
 }
+
+model WebHook {
+  id              Int      @id @default(sequence())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  createdUserId   String
+  createdUserName String
+  name            String
+  url             String
+  status          Boolean?
+}

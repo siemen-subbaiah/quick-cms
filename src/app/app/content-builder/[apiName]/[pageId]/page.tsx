@@ -1,7 +1,7 @@
 import ContentFieldsSetup from '@/components/contentbuilder/ContentFieldsSetup';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { getPage, listPageFields } from '@/lib/utils';
+import { getPage, listPageFields, listWebHooks } from '@/lib/utils';
 import Link from 'next/link';
 import React from 'react';
 import { MdArrowBackIos } from 'react-icons/md';
@@ -13,6 +13,7 @@ const ContentBuilderPage = async ({
 }) => {
   const fields = await listPageFields(+params.pageId);
   const page = await getPage(+params.pageId);
+  const webHooks = await listWebHooks();
 
   return (
     <>
@@ -32,7 +33,7 @@ const ContentBuilderPage = async ({
           <section className='my-5'>
             <Card>
               <CardContent>
-                <ContentFieldsSetup fields={fields} />
+                <ContentFieldsSetup fields={fields} webHooks={webHooks} />
               </CardContent>
             </Card>
           </section>

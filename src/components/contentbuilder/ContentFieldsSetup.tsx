@@ -1,6 +1,6 @@
 'use client';
 
-import { Field } from '@prisma/client';
+import { Field, WebHook } from '@prisma/client';
 import React, { useEffect, useState } from 'react';
 import { FieldType } from '@/types/enums';
 import { Label } from '../ui/label';
@@ -15,11 +15,18 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
+import { Textarea } from '../ui/textarea';
+import RichText from '../RichText';
 
-const ContentFieldsSetup = ({ fields }: { fields: Field[] }) => {
+const ContentFieldsSetup = ({
+  fields,
+  webHooks,
+}: {
+  fields: Field[];
+  webHooks: WebHook[];
+}) => {
   const router = useRouter();
 
-  const [date, setDate] = useState<Date>();
   const [loading, setLoading] = useState(false);
   const [isSaveDisabled, setIsSaveDisabled] = useState(true);
 
@@ -41,6 +48,13 @@ const ContentFieldsSetup = ({ fields }: { fields: Field[] }) => {
     })
   );
 
+  useEffect(() => {
+    const allRequiredFieldsFilled = value.every((field) => {
+      return !field.isRequired || (field.isRequired && field.value);
+    });
+    setIsSaveDisabled(!allRequiredFieldsFilled);
+  }, [value]);
+
   const setterValue = (currentValue: StateField, val: string) => {
     setValue((prevState) =>
       prevState.map((field) =>
@@ -49,28 +63,14 @@ const ContentFieldsSetup = ({ fields }: { fields: Field[] }) => {
     );
   };
 
-  useEffect(() => {
-    const dateField = fields.find(
-      (field) => field.fieldType === FieldType.Date
-    );
-    if (dateField && dateField.defaultValue) {
-      setDate(new Date(dateField.defaultValue));
-    }
-  }, [fields]);
-
-  useEffect(() => {
-    const allRequiredFieldsFilled = value.every((field) => {
-      return !field.isRequired || (field.isRequired && field.value);
-    });
-    setIsSaveDisabled(!allRequiredFieldsFilled);
-  }, [value]);
-
-  const handleDateChange = (selectedDate: Date | undefined) => {
-    setDate(selectedDate);
+  const handleDateChange = (
+    currentValue: StateField,
+    selectedDate: Date | undefined
+  ) => {
     if (selectedDate) {
       setValue((prevState) =>
         prevState.map((field) =>
-          field.fieldType === FieldType.Date
+          field.fieldType === FieldType.Date && currentValue.id === field.id
             ? { ...field, value: selectedDate.toISOString() }
             : field
         )
@@ -79,7 +79,10 @@ const ContentFieldsSetup = ({ fields }: { fields: Field[] }) => {
   };
 
   const handleValueSave = () => {
-    const payload = value.filter((field) => field.value);
+    const payload = {
+      fields: value.filter((field) => field.value),
+      webHooks,
+    };
     toast.promise(updateFields(payload), {
       loading: 'Loading...',
       success: <b>Fields updated successfully</b>,
@@ -87,7 +90,10 @@ const ContentFieldsSetup = ({ fields }: { fields: Field[] }) => {
     });
   };
 
-  const updateFields = async (payload: StateField[]) => {
+  const updateFields = async (payload: {
+    fields: StateField[];
+    webHooks: WebHook[];
+  }) => {
     setLoading(true);
     const res = await fetch('/api/update-value', {
       method: 'POST',
@@ -121,7 +127,7 @@ const ContentFieldsSetup = ({ fields }: { fields: Field[] }) => {
         return (
           <div className='my-5 w-1/2' key={val.id}>
             <section className='my-2'>
-              {val.fieldType === FieldType.Text && (
+              {val.fieldType === FieldType.Text && val.isShortText && (
                 <div className='flex flex-col space-y-1.5 my-7'>
                   <Label htmlFor={val.fieldName}>
                     {val.fieldName}{' '}
@@ -129,6 +135,19 @@ const ContentFieldsSetup = ({ fields }: { fields: Field[] }) => {
                   </Label>
                   <Input
                     type='text'
+                    id={val.fieldName}
+                    value={val.value}
+                    onChange={(e) => setterValue(val, e.target.value)}
+                  />
+                </div>
+              )}
+              {val.fieldType === FieldType.Text && !val.isShortText && (
+                <div className='flex flex-col space-y-1.5 my-7'>
+                  <Label htmlFor={val.fieldName}>
+                    {val.fieldName}{' '}
+                    {val.isRequired && <span className='text-red-500'>*</span>}
+                  </Label>
+                  <Textarea
                     id={val.fieldName}
                     value={val.value}
                     onChange={(e) => setterValue(val, e.target.value)}
@@ -150,11 +169,15 @@ const ContentFieldsSetup = ({ fields }: { fields: Field[] }) => {
                   </Label>
                 </div>
               )}
-              {/* {val.fieldType === FieldType.RichText && (
-                <div className='flex items-center gap-2 space-y-1.5 my-7'>
-                  coming soon...
+              {val.fieldType === FieldType.RichText && (
+                <div className='flex flex-col space-y-1.5 my-7'>
+                  <Label htmlFor={val.fieldName}>
+                    {val.fieldName}{' '}
+                    {val.isRequired && <span className='text-red-500'>*</span>}
+                  </Label>
+                  <RichText field={val} setterValue={setterValue} />
                 </div>
-              )} */}
+              )}
               {val.fieldType === FieldType.Number && (
                 <div className='flex flex-col space-y-1.5 my-7'>
                   <Label htmlFor={val.fieldName}>
@@ -185,18 +208,22 @@ const ContentFieldsSetup = ({ fields }: { fields: Field[] }) => {
               )}
               {val.fieldType === FieldType.Date && (
                 <div className='flex flex-col space-y-1.5 my-7'>
+                  <Label htmlFor={val.fieldName}>
+                    {val.fieldName}{' '}
+                    {val.isRequired && <span className='text-red-500'>*</span>}
+                  </Label>
                   <Popover>
                     <PopoverTrigger asChild>
                       <Button
                         variant={'outline'}
                         className={cn(
                           'justify-start text-left font-normal',
-                          !date && 'text-muted-foreground'
+                          !val.value && 'text-muted-foreground'
                         )}
                       >
                         <CalendarIcon className='mr-2 h-4 w-4' />
-                        {date ? (
-                          format(date, 'PPP')
+                        {val.value ? (
+                          format(val.value, 'PPP')
                         ) : (
                           <span>{val.fieldName}</span>
                         )}
@@ -205,8 +232,8 @@ const ContentFieldsSetup = ({ fields }: { fields: Field[] }) => {
                     <PopoverContent className='w-auto p-0' align='start'>
                       <Calendar
                         mode='single'
-                        selected={date}
-                        onSelect={handleDateChange}
+                        selected={new Date(val.value)}
+                        onSelect={(e) => handleDateChange(val, e)}
                         initialFocus
                       />
                     </PopoverContent>

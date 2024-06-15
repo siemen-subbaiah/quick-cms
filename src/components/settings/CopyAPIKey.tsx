@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Label } from './ui/label';
-import { Input } from './ui/input';
-import { Button } from './ui/button';
+import { Label } from '../ui/label';
+import { Input } from '../ui/input';
+import { Button } from '../ui/button';
 import { MdContentCopy } from 'react-icons/md';
 import toast from 'react-hot-toast';
 

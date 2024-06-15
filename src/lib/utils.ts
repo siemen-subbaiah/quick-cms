@@ -12,6 +12,16 @@ export const generateApiKey = () => {
   return randomBytes(32).toString('hex');
 };
 
+export const debounce = (func: any, delay: number) => {
+  let timeOutId: any;
+  return (...args: any) => {
+    clearTimeout(timeOutId);
+    timeOutId = setTimeout(() => {
+      func(...args);
+    }, delay);
+  };
+};
+
 export const listPages = async () => {
   const session = await auth();
   const pages = await prisma.page.findMany({
@@ -23,8 +33,10 @@ export const listPages = async () => {
 };
 
 export const getPage = async (pageId: number) => {
+  const session = await auth();
   const pages = await prisma.page.findUnique({
     where: {
+      createdUserId: session?.user?.id,
       id: pageId,
     },
   });
@@ -42,4 +54,14 @@ export const listPageFields = async (pageId: number) => {
     },
   });
   return fields;
+};
+
+export const listWebHooks = async () => {
+  const session = await auth();
+  const pages = await prisma.webHook.findMany({
+    where: {
+      createdUserId: session?.user?.id,
+    },
+  });
+  return pages;
 };

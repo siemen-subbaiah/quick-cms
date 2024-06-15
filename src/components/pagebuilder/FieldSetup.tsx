@@ -80,7 +80,7 @@ const FieldSetup = ({
       setIsShortText(editProps?.isShortText as boolean);
       setDefaultValue(editProps?.defaultValue as string);
 
-      if (editProps?.fieldType === FieldType.Number) {
+      if (editProps?.fieldType === FieldType.Text) {
         if (editProps?.isShortText) {
           setTextFieldType('shortText');
         } else {
@@ -105,8 +105,10 @@ const FieldSetup = ({
   const captureTextType = (e: 'longText' | 'shortText') => {
     if (e === 'shortText') {
       setIsShortText(true);
+      setTextFieldType('shortText');
     } else {
       setIsShortText(false);
+      setTextFieldType('longText');
     }
   };
 
@@ -298,7 +300,6 @@ const FieldSetup = ({
                   <Label htmlFor='fieldName'>Type</Label>
                   <RadioGroup
                     onValueChange={captureTextType}
-                    defaultValue={textFieldType}
                     value={textFieldType}
                   >
                     <div className='flex items-center space-x-2'>
@@ -388,7 +389,9 @@ const FieldSetup = ({
                   checked={isRequired}
                   onCheckedChange={(e) => setIsRequired(e)}
                 />
-                <Label htmlFor='requiredField'>Required Field</Label>
+                <Label htmlFor='requiredField' className='relative bottom-1'>
+                  Required Field
+                </Label>
               </div>
             </div>
           </form>

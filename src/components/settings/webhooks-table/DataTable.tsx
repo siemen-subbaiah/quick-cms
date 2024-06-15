@@ -69,7 +69,7 @@ export function DataTable<TData, TValue>({
           ) : (
             <TableRow>
               <TableCell colSpan={columns.length} className='h-24 text-center'>
-                No fields found for this page
+                No webhooks found
               </TableCell>
             </TableRow>
           )}
