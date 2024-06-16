@@ -2,9 +2,15 @@ import WebHookModal from '@/components/settings/WebHookModal';
 import { DataTable } from '@/components/settings/webhooks-table/DataTable';
 import { columns } from '@/components/settings/webhooks-table/columns';
 import { listWebHooks } from '@/lib/utils';
+import { Metadata } from 'next';
 import Link from 'next/link';
 import React from 'react';
 import { MdArrowBackIos } from 'react-icons/md';
+
+export const metadata: Metadata = {
+  title: 'Webhooks',
+  description: 'Manage the Webhooks for Quick CMS',
+};
 
 const WebHooksPage = async () => {
   const webHooks = await listWebHooks();

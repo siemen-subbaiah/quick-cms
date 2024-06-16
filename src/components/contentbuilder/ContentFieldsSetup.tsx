@@ -1,6 +1,6 @@
 'use client';
 
-import { Field, WebHook } from '@prisma/client';
+import { Field, Page, WebHook } from '@prisma/client';
 import React, { useEffect, useState } from 'react';
 import { FieldType } from '@/types/enums';
 import { Label } from '../ui/label';
@@ -17,17 +17,23 @@ import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { Textarea } from '../ui/textarea';
 import RichText from '../RichText';
+import { CldImage, CldUploadWidget } from 'next-cloudinary';
+import { Card, CardContent } from '../ui/card';
+import { MdClose } from 'react-icons/md';
 
 const ContentFieldsSetup = ({
   fields,
   webHooks,
+  page,
 }: {
   fields: Field[];
   webHooks: WebHook[];
+  page: Page;
 }) => {
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
+  const [assetLoading, setAssetLoading] = useState(false);
   const [isSaveDisabled, setIsSaveDisabled] = useState(true);
 
   const [value, setValue] = useState(
@@ -78,9 +84,82 @@ const ContentFieldsSetup = ({
     }
   };
 
+  const removeImage = (public_id: any, val: StateField) => {
+    const payload = {
+      public_id,
+    };
+    toast.promise(deleteAsset(payload, val), {
+      loading: 'Loading...',
+      success: <b>Asset deleted successfully</b>,
+      error: <b>Unexpected error occured while deleting the asset</b>,
+    });
+  };
+
+  const deleteAsset = async (payload: { public_id: any }, val: StateField) => {
+    setAssetLoading(true);
+    const res = await fetch('/api/delete-image', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) {
+      toast('Network error occured while deleting asset');
+    }
+
+    if (res.ok) {
+      const data = await res.json();
+
+      if (data.success) {
+        setterValue(val, '');
+        setAssetLoading(false);
+      } else {
+        toast(data.message);
+        setAssetLoading(true);
+      }
+    }
+  };
+
+  const handlePagePublish = () => {
+    toast.promise(
+      publishPage({
+        id: page.id,
+        isPublished: page.isPublished ? false : true,
+      }),
+      {
+        loading: 'Loading...',
+        success: (
+          <b>{page.isPublished ? 'Unpublished' : 'Published'} successfully</b>
+        ),
+        error: <b>Unexpected error occured while publishing/unpublishing</b>,
+      }
+    );
+  };
+
+  const publishPage = async (payload: { id: number; isPublished: boolean }) => {
+    const res = await fetch('/api/edit-page', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) {
+      toast('Network error occured while publishing/unpublishing');
+    }
+
+    if (res.ok) {
+      await res.json();
+      router.refresh();
+    }
+  };
+
   const handleValueSave = () => {
     const payload = {
-      fields: value.filter((field) => field.value),
+      fields: [...value],
       webHooks,
     };
     toast.promise(updateFields(payload), {
@@ -242,7 +321,102 @@ const ContentFieldsSetup = ({
               )}
               {val.fieldType === FieldType.Image && (
                 <div className='flex flex-col space-y-1.5 my-7'>
-                  coming soon...
+                  <Label htmlFor={val.fieldName}>
+                    {val.fieldName}{' '}
+                    {val.isRequired && <span className='text-red-500'>*</span>}
+                  </Label>
+                  <Card>
+                    <CardContent>
+                      {!val.value ? (
+                        <CldUploadWidget
+                          signatureEndpoint='/api/secure-image'
+                          onUpload={(result: any, widget) => {
+                            const cloudinaryResult = {
+                              attachmentPublicId: result?.info.public_id,
+                              attachmentLink: result?.info?.secure_url,
+                              attachmentExtension: result?.info?.format
+                                ? result?.info?.format
+                                : result?.info?.public_id.split('.')[1],
+                            };
+                            if (cloudinaryResult) {
+                              setterValue(
+                                val,
+                                `${cloudinaryResult.attachmentLink}|${cloudinaryResult.attachmentPublicId}`
+                              );
+                            }
+                            widget.close();
+                          }}
+                        >
+                          {({ open }) => {
+                            function handleOnClick(e: any) {
+                              e.preventDefault();
+                              open();
+                            }
+                            return (
+                              <>
+                                {!val.value ? (
+                                  <div className='mt-2 flex justify-center flex-col items-center'>
+                                    <p className='my-2'>Upload image here</p>
+                                    <Button
+                                      variant='secondary'
+                                      onClick={handleOnClick}
+                                    >
+                                      Upload
+                                    </Button>
+                                  </div>
+                                ) : (
+                                  <div className='mt-3 flex gap-2'>
+                                    <CldImage
+                                      width='200'
+                                      height='200'
+                                      src={val.value.split('|')[1]}
+                                      alt='Uploaded image'
+                                    />
+                                    <Button
+                                      variant='outline'
+                                      size='icon'
+                                      disabled={assetLoading}
+                                    >
+                                      <MdClose
+                                        className='h-6 w-6 cursor-pointer'
+                                        onClick={() =>
+                                          removeImage(
+                                            val.value.split('|')[1],
+                                            val
+                                          )
+                                        }
+                                      />
+                                    </Button>
+                                  </div>
+                                )}
+                              </>
+                            );
+                          }}
+                        </CldUploadWidget>
+                      ) : (
+                        <div className='mt-3 flex gap-2'>
+                          <CldImage
+                            width='200'
+                            height='200'
+                            src={val.value.split('|')[1]}
+                            alt='Uploaded image'
+                          />
+                          <Button
+                            variant='outline'
+                            size='icon'
+                            disabled={assetLoading}
+                          >
+                            <MdClose
+                              className='h-6 w-6 cursor-pointer'
+                              onClick={() =>
+                                removeImage(val.value.split('|')[1], val)
+                              }
+                            />
+                          </Button>
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
                 </div>
               )}
             </section>
@@ -253,8 +427,12 @@ const ContentFieldsSetup = ({
         <Link href='/app/page-builder'>
           <Button variant='link'>Edit Fields</Button>
         </Link>
-        <Button disabled={isSaveDisabled} variant='outline'>
-          Publish
+        <Button
+          onClick={handlePagePublish}
+          disabled={isSaveDisabled}
+          variant='outline'
+        >
+          {page.isPublished ? 'Unpublish' : 'Publish'}
         </Button>
         <Button disabled={isSaveDisabled || loading} onClick={handleValueSave}>
           Save

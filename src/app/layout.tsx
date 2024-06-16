@@ -6,7 +6,26 @@ import { ThemeProvider } from '@/components/theme-provider';
 const notoSans = Noto_Sans({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Quick CMS',
+  metadataBase: new URL(process.env.AUTH_TRUST_HOST as string),
+  title: {
+    template: '%s | Quick CMS',
+    default: 'Quick CMS',
+  },
+  description:
+    'The only headless CMS to store, retrive content for your landing pages',
+  openGraph: {
+    title: 'Quick CMS',
+    description:
+      'The only headless CMS to store, retrive content for your landing pages',
+    siteName: 'Quick CMS',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Quick CMS',
+    description:
+      'The only headless CMS to store, retrive content for your landing pages',
+    creator: '@siemen_subbaiah',
+  },
 };
 
 export default function RootLayout({

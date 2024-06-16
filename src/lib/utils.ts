@@ -12,6 +12,10 @@ export const generateApiKey = () => {
   return randomBytes(32).toString('hex');
 };
 
+export const capitalize = (str: string) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
 export const debounce = (func: any, delay: number) => {
   let timeOutId: any;
   return (...args: any) => {

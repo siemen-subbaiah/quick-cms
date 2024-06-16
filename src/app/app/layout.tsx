@@ -1,3 +1,4 @@
+import MyToast from '@/components/MyToast';
 import SideBar from '@/components/SideBar';
 import { PageBuilderStoreProvider } from '@/store/pagebuilder-store-provider';
 import { Toaster } from 'react-hot-toast';
@@ -15,7 +16,7 @@ export default function AppLayout({
         </div>
         <main className='px-4 col-span-10 h-screen overflow-y-scroll overflow-x-hidden'>
           {children}
-          <Toaster />
+          <MyToast />
         </main>
       </section>
     </PageBuilderStoreProvider>

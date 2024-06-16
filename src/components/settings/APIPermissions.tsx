@@ -2,20 +2,27 @@
 
 import { Page } from '@prisma/client';
 import React, { useState } from 'react';
-import { Card, CardHeader, CardTitle } from '../ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '../ui/card';
 import { Switch } from '../ui/switch';
 import toast from 'react-hot-toast';
 import { debounce } from '@/lib/utils';
+import { MdContentCopy } from 'react-icons/md';
 
-const APIPermissions = ({ page }: { page: Page }) => {
-  const [isPublished, setIsPublished] = useState(page.isPublished);
+const APIPermissions = ({ page, apiKey }: { page: Page; apiKey: string }) => {
+  const [isAPIPublished, setIsAPIPublished] = useState(page.isAPIPublished);
 
   const handlePermissionChange = debounce((e: any) => {
-    setIsPublished(e);
+    setIsAPIPublished(e);
     toast.promise(
       editPermission({
         id: page.id,
-        isPublished: e as boolean,
+        isAPIPublished: e as boolean,
       }),
       {
         loading: 'Loading...',
@@ -27,7 +34,7 @@ const APIPermissions = ({ page }: { page: Page }) => {
 
   const editPermission = async (payload: {
     id: number;
-    isPublished: boolean;
+    isAPIPublished: boolean;
   }) => {
     const res = await fetch('/api/edit-page', {
       method: 'POST',
@@ -46,17 +53,39 @@ const APIPermissions = ({ page }: { page: Page }) => {
     }
   };
 
+  const handleAPICopy = (apiName: string) => {
+    navigator.clipboard
+      .writeText(`/api/${apiName}?apiKey=${apiKey}`)
+      .then(() => {
+        toast('API Endpoint copied to clipboard!');
+      })
+      .catch((err) => {
+        console.error('Failed to copy text: ', err);
+      });
+  };
+
   return (
     <Card className='my-5'>
       <CardHeader>
         <div className='flex justify-between'>
           <CardTitle>{page.displayName}</CardTitle>
           <Switch
-            checked={isPublished as boolean}
+            checked={isAPIPublished as boolean}
             onCheckedChange={(e) => handlePermissionChange(e)}
           />
         </div>
       </CardHeader>
+      <CardContent>
+        <section className='flex items-center gap-3'>
+          <CardDescription>
+            API Endpoint : /api/{page.apiName}?apiKey={apiKey}
+          </CardDescription>
+          <MdContentCopy
+            className='w-4 h-4 cursor-pointer'
+            onClick={() => handleAPICopy(page.apiName)}
+          />
+        </section>
+      </CardContent>
     </Card>
   );
 };

@@ -32,6 +32,7 @@ const WebHookModal = ({
   const [url, setURL] = useState('');
   const [id, setId] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
+  const [invalidUrl, setInvalidUrl] = useState(false);
 
   useEffect(() => {
     if (editProps) {
@@ -40,6 +41,17 @@ const WebHookModal = ({
       setId(editProps.id);
     }
   }, [editProps]);
+
+  const validateURL = (val: string) => {
+    const expression =
+      /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/gi;
+    const regex = new RegExp(expression);
+    if (val.match(regex)) {
+      setInvalidUrl(false);
+    } else {
+      setInvalidUrl(true);
+    }
+  };
 
   const handleAddOrEditWebHook = (e: any) => {
     e.preventDefault();
@@ -182,17 +194,24 @@ const WebHookModal = ({
                 URL <span className='text-red-500'>*</span>{' '}
               </Label>
               <Input
+                type='url'
                 id='url'
                 placeholder='Paste the build hook URL from netlify or vercel here'
                 value={url}
-                onChange={(e) => setURL(e.target.value)}
+                onChange={(e) => {
+                  validateURL(e.target.value);
+                  setURL(e.target.value);
+                }}
               />
+              {url && invalidUrl && (
+                <span className='text-red-500 text-sm'>Invalid URL</span>
+              )}
             </div>
           </div>
         </form>
         <DialogFooter className='sm:justify-start'>
           <Button
-            disabled={!name || !url || loading}
+            disabled={!name || !url || loading || invalidUrl}
             type='submit'
             onClick={handleAddOrEditWebHook}
           >

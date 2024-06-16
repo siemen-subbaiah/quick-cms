@@ -8,8 +8,14 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { Metadata } from 'next';
 import Link from 'next/link';
 import React from 'react';
+
+export const metadata: Metadata = {
+  title: 'Settings',
+  description: 'Settings page for Quick CMS',
+};
 
 const SettingsPage = async () => {
   const session = await auth();

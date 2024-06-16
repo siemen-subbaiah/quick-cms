@@ -1,6 +1,11 @@
 import { auth } from '@/auth';
-import { generateApiKey } from '@/lib/utils';
+import { Metadata } from 'next';
 import React from 'react';
+
+export const metadata: Metadata = {
+  title: 'Home',
+  description: 'The home page of Quick CMS',
+};
 
 const AppPage = async () => {
   const session = await auth();

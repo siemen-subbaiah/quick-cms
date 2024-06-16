@@ -1,7 +1,13 @@
 import GlobalDrawer from '@/components/pagebuilder/GlobalDrawer';
 import PageList from '@/components/pagebuilder/PageList';
 import { listPages } from '@/lib/utils';
+import { Metadata } from 'next';
 import React from 'react';
+
+export const metadata: Metadata = {
+  title: 'Page Builder',
+  description: 'Build and configure the page fields in page builder',
+};
 
 const PageBuilderPage = async () => {
   const pages = await listPages();

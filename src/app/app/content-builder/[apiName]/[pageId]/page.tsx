@@ -1,10 +1,22 @@
 import ContentFieldsSetup from '@/components/contentbuilder/ContentFieldsSetup';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { getPage, listPageFields, listWebHooks } from '@/lib/utils';
+import { capitalize, getPage, listPageFields, listWebHooks } from '@/lib/utils';
+import { Metadata } from 'next';
 import Link from 'next/link';
 import React from 'react';
 import { MdArrowBackIos } from 'react-icons/md';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { apiName: string; pageId: number };
+}): Promise<Metadata> {
+  return {
+    title: `${capitalize(params.apiName)} - content`,
+    description: `Build and configure the content for the ${params.apiName} page`,
+  };
+}
 
 const ContentBuilderPage = async ({
   params,
@@ -33,7 +45,11 @@ const ContentBuilderPage = async ({
           <section className='my-5'>
             <Card>
               <CardContent>
-                <ContentFieldsSetup fields={fields} webHooks={webHooks} />
+                <ContentFieldsSetup
+                  fields={fields}
+                  webHooks={webHooks}
+                  page={page}
+                />
               </CardContent>
             </Card>
           </section>

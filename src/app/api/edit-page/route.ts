@@ -12,6 +12,7 @@ export const POST = async (request: Request) => {
         displayName: res.displayName,
         description: res.description,
         isPublished: res.isPublished,
+        isAPIPublished: res.isAPIPublished,
       },
     });
 

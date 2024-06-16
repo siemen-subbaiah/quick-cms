@@ -1,4 +1,4 @@
-import { getPage, listPageFields } from '@/lib/utils';
+import { capitalize, getPage, listPageFields } from '@/lib/utils';
 import React from 'react';
 import { DataTable } from '@/components/pagebuilder/FieldsTable/DataTable';
 import { columns } from '@/components/pagebuilder/FieldsTable/columns';
@@ -7,6 +7,18 @@ import AlertPage from '@/components/pagebuilder/AlertPage';
 import Link from 'next/link';
 import { MdArrowBackIos } from 'react-icons/md';
 import { Button } from '@/components/ui/button';
+import { Metadata } from 'next';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { apiName: string; pageId: number };
+}): Promise<Metadata> {
+  return {
+    title: capitalize(params.apiName),
+    description: `Build and configure the page fields for the ${params.apiName} page`,
+  };
+}
 
 const DetailPage = async ({
   params,

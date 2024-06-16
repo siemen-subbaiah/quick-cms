@@ -1,11 +1,20 @@
+import { auth } from '@/auth';
 import APIPermissions from '@/components/settings/APIPermissions';
 import { listPages } from '@/lib/utils';
+import { Metadata } from 'next';
 import Link from 'next/link';
 import React from 'react';
 import { MdArrowBackIos } from 'react-icons/md';
 
+export const metadata: Metadata = {
+  title: 'API Permissions',
+  description: 'Manage the API endpoints for your pages here',
+};
+
 const APIPermissionsPage = async () => {
   const pages = await listPages();
+  const session = await auth();
+
   return (
     <section className='my-5'>
       <div className='flex justify-between items-center'>
@@ -24,7 +33,11 @@ const APIPermissionsPage = async () => {
       </p>
       <div className='my-5'>
         {pages.map((page) => (
-          <APIPermissions key={page.id} page={page} />
+          <APIPermissions
+            key={page.id}
+            page={page}
+            apiKey={session?.user.apiKey}
+          />
         ))}
       </div>
     </section>
