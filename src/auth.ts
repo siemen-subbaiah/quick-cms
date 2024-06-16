@@ -45,6 +45,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         where: { id: user.id },
         data: { apiKey: newKey },
       });
+      user.apiKey = newKey;
     },
   },
   adapter: PrismaAdapter(Prisma),

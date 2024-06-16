@@ -10,7 +10,7 @@ export default function AppLayout({
 }>) {
   return (
     <PageBuilderStoreProvider>
-      <section className='grid grid-cols-12'>
+      <section className='hidden md:grid grid-cols-12'>
         <div className='col-span-2'>
           <SideBar />
         </div>
@@ -18,6 +18,11 @@ export default function AppLayout({
           {children}
           <MyToast />
         </main>
+      </section>
+      <section className='md:hidden mt-72 p-4'>
+        <p className='text-center'>
+          This webapp is best viewed on laptop/desktop screens
+        </p>
       </section>
     </PageBuilderStoreProvider>
   );
