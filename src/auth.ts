@@ -10,26 +10,13 @@ const Prisma = new PrismaClient();
 export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async signIn({ user }) {
-      const checkIfAPIKeyExists = await prisma.user.findUnique({
+      const currentUser = await prisma.user.findUnique({
         where: {
           id: user?.id,
         },
       });
 
-      if (!checkIfAPIKeyExists?.apiKey) {
-        const newKey = generateApiKey();
-        await prisma.user.update({
-          where: {
-            id: user?.id,
-          },
-          data: {
-            apiKey: generateApiKey(),
-          },
-        });
-        user.apiKey = newKey;
-      } else {
-        user.apiKey = checkIfAPIKeyExists.apiKey;
-      }
+      user.apiKey = currentUser?.apiKey as string;
       return true;
     },
 
@@ -49,6 +36,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           apiKey: token.apiKey,
         },
       };
+    },
+  },
+  events: {
+    async createUser({ user }) {
+      const newKey = generateApiKey();
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { apiKey: newKey },
+      });
     },
   },
   adapter: PrismaAdapter(Prisma),
