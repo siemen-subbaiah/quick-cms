@@ -71,14 +71,15 @@ const APIPermissions = ({ page, apiKey }: { page: Page; apiKey: string }) => {
           <CardTitle>{page.displayName}</CardTitle>
           <Switch
             checked={isAPIPublished as boolean}
-            onCheckedChange={(e) => handlePermissionChange(e)}
+            onCheckedChange={(e: any) => handlePermissionChange(e)}
           />
         </div>
       </CardHeader>
       <CardContent>
         <section className='flex items-center gap-3'>
           <CardDescription>
-            API Endpoint : /api/{page.apiName}?apiKey={apiKey}
+            API Endpoint : {process.env.NEXT_PUBLIC_URL}/api/{page.apiName}
+            ?apiKey={apiKey}
           </CardDescription>
           <MdContentCopy
             className='w-4 h-4 cursor-pointer'

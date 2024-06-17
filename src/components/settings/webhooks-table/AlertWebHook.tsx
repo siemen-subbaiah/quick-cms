@@ -22,6 +22,14 @@ const AlertWebHook = ({ webHookId }: { webHookId: number }) => {
   const [loading, setLoading] = useState(false);
 
   const handleDeleteWebHook = async () => {
+    toast.promise(deleteWebHook(), {
+      loading: 'Loading...',
+      success: <b>Webhook deleted successfully</b>,
+      error: <b>Unexpected error occured while deleting the webhook</b>,
+    });
+  };
+
+  const deleteWebHook = async () => {
     setLoading(true);
     const res = await fetch(`/api/delete-webhook/${webHookId}`, {
       method: 'DELETE',
@@ -37,7 +45,6 @@ const AlertWebHook = ({ webHookId }: { webHookId: number }) => {
       if (data.success) {
         setOpen(false);
         setLoading(false);
-        toast(data.message);
         router.refresh();
       } else {
         setLoading(false);

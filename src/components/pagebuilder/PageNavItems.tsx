@@ -4,6 +4,7 @@ import React from 'react';
 import {
   MdOutlineAccountCircle,
   MdOutlineBuildCircle,
+  MdOutlineHome,
   MdSettings,
 } from 'react-icons/md';
 import { Button } from '../ui/button';
@@ -17,13 +18,28 @@ const PageNavItems = () => {
 
   return (
     <div className='my-2 flex flex-col'>
+      <Link href='/app'>
+        <Button
+          variant='link'
+          className={`${
+            pathname === '/app'
+              ? 'text-primary'
+              : theme === 'dark' || theme === 'system'
+              ? 'text-white'
+              : 'text-dark'
+          } relative right-4 `}
+        >
+          <MdOutlineHome className='mr-2 h-6 w-6' />
+          Home
+        </Button>
+      </Link>
       <Link href='/app/page-builder'>
         <Button
           variant='link'
           className={`${
             pathname.includes('page-builder')
               ? 'text-primary'
-              : theme === 'dark'
+              : theme === 'dark' || theme === 'system'
               ? 'text-white'
               : 'text-dark'
           } relative right-4 `}
@@ -36,9 +52,9 @@ const PageNavItems = () => {
         <Button
           variant='link'
           className={`${
-            pathname === '/app/settings'
+            pathname.includes('/settings')
               ? 'text-primary'
-              : theme === 'dark'
+              : theme === 'dark' || theme === 'system'
               ? 'text-white'
               : 'text-dark'
           } relative right-4`}
@@ -47,21 +63,6 @@ const PageNavItems = () => {
           Settings
         </Button>
       </Link>
-      {/* <Link href='/app/account'>
-        <Button
-          variant='link'
-          className={`${
-            pathname === '/app/account'
-              ? 'text-primary'
-              : theme === 'dark'
-              ? 'text-white'
-              : 'text-dark'
-          } relative right-4`}
-        >
-          <MdOutlineAccountCircle className='mr-2 h-6 w-6' />
-          Account
-        </Button>
-      </Link> */}
     </div>
   );
 };

@@ -9,6 +9,7 @@ import Image from 'next/image';
 import ContentNavItems from './contentbuilder/ContentNavItems';
 import PageNavItems from './pagebuilder/PageNavItems';
 import { ModeToggle } from './ThemeToggle';
+import ContentHeading from './contentbuilder/ContentHeading';
 
 const SideBar = () => {
   return (
@@ -27,9 +28,7 @@ const SideBar = () => {
           <ModeToggle />
         </section>
         <ResizablePanel defaultSize={50}>
-          <div className='p-2 bg-secondary flex items-center rounded-sm'>
-            <span className='font-semibold text-md'>Content Builder</span>
-          </div>
+          <ContentHeading />
           <section className='flex flex-col mt-1 ml-1'>
             <ContentNavItems />
           </section>

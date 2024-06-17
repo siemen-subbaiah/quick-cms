@@ -24,7 +24,7 @@ const SettingsPage = async () => {
     <section className='my-5'>
       <h1 className='text-2xl'>Settings</h1>
       <section className='my-5'>
-        <div className='p-3 bg-secondary rounded-sm my-2 w-1/5'>
+        <div className='p-3 bg-secondary rounded-md my-2'>
           <h2 className='font-semibold text-md'>General Settings</h2>
         </div>
 
@@ -56,7 +56,7 @@ const SettingsPage = async () => {
         </Link>
       </section>
       <section className='my-2'>
-        <div className='p-3 bg-secondary rounded-sm my-2 w-1/5'>
+        <div className='p-3 bg-secondary rounded-md my-2'>
           <h2 className='font-semibold text-md'>Account Settings</h2>
         </div>
         <section>

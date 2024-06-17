@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import GlobalDrawer from '@/components/pagebuilder/GlobalDrawer';
 import PageList from '@/components/pagebuilder/PageList';
 import { listPages } from '@/lib/utils';

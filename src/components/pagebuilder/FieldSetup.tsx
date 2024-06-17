@@ -67,7 +67,7 @@ const FieldSetup = ({
   const [fieldName, setFieldName] = useState('');
   const [defaultValue, setDefaultValue] = useState('');
   const [isRequired, setIsRequired] = useState(false);
-  const [isShortText, setIsShortText] = useState(false);
+  const [isShortText, setIsShortText] = useState(true);
   const [date, setDate] = React.useState<Date>();
   const [loading, setLoading] = useState(false);
   const [textFieldType, setTextFieldType] = useState('shortText');
@@ -405,7 +405,18 @@ const FieldSetup = ({
               Cancel
             </Button>
           )}
-          {!editProps && <Button variant='ghost'>Cancel</Button>}
+          {!editProps && (
+            <Button
+              onClick={() => {
+                setOpen(false);
+                proceedToFieldSelection(true);
+                setFieldType(null);
+              }}
+              variant='ghost'
+            >
+              Cancel
+            </Button>
+          )}
         </CardFooter>
       </Card>
     </section>

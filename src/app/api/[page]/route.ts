@@ -1,4 +1,7 @@
+export const dynamic = 'force-dynamic';
+
 import prisma from '@/config/db';
+import { FieldType } from '@/types/enums';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const GET = async (
@@ -32,7 +35,11 @@ export const GET = async (
             if (page[0].isPublished) {
               const fieldsObject: any = {};
               page[0].fields.forEach((field) => {
-                fieldsObject[field.fieldName] = field.value;
+                if (field.fieldType === FieldType.Image) {
+                  fieldsObject[field.fieldName] = field.value?.split('|')[0];
+                } else {
+                  fieldsObject[field.fieldName] = field.value;
+                }
               });
 
               const finalResponse = {

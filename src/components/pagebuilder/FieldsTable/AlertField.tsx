@@ -22,6 +22,14 @@ const AlertField = ({ fieldId }: { fieldId: number }) => {
   const [loading, setLoading] = useState(false);
 
   const handleFieldDelete = async () => {
+    toast.promise(deleteField(), {
+      loading: 'Loading...',
+      success: <b>Field deleted successfully</b>,
+      error: <b>Unexpected error occured while deleting the field</b>,
+    });
+  };
+
+  const deleteField = async () => {
     setLoading(true);
     const res = await fetch(`/api/delete-field/${fieldId}`, {
       method: 'DELETE',
@@ -37,7 +45,6 @@ const AlertField = ({ fieldId }: { fieldId: number }) => {
       if (data.success) {
         setOpen(false);
         setLoading(false);
-        toast(data.message);
         router.refresh();
       } else {
         setLoading(false);

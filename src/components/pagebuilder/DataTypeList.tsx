@@ -26,7 +26,10 @@ const DataTypeList = ({
         <Button
           variant='ghost'
           className='mb-2'
-          onClick={() => proceedToFieldSelection(false)}
+          onClick={() => {
+            proceedToFieldSelection(false);
+            setFieldType(null);
+          }}
         >
           <MdOutlineKeyboardArrowLeft fontSize='1.5rem' />
           Back

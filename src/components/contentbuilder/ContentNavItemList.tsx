@@ -21,7 +21,7 @@ const ContentNavItemList = ({ page }: { page: Page }) => {
         className={`${
           pathname === `/app/content-builder/${page.apiName}/${page.id}`
             ? 'text-primary'
-            : theme === 'dark'
+            : theme === 'dark' || theme === 'system'
             ? 'text-white'
             : 'text-dark'
         } relative right-4`}

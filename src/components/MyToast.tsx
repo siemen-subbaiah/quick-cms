@@ -11,9 +11,15 @@ const MyToast = () => {
     <Toaster
       toastOptions={{
         style: {
-          backgroundColor: `${theme === 'dark' ? '#1E293B' : '#F1F5F9'}`,
-          color: `${theme === 'dark' ? '#f8fafc' : '#020817'}`,
-          border: `1px solid ${theme === 'dark' ? '#1e293b' : '#e2e8f0'}`,
+          backgroundColor: `${
+            theme === 'dark' || theme === 'system' ? '#1E293B' : '#F1F5F9'
+          }`,
+          color: `${
+            theme === 'dark' || theme === 'system' ? '#f8fafc' : '#020817'
+          }`,
+          border: `1px solid ${
+            theme === 'dark' || theme === 'system' ? '#1e293b' : '#e2e8f0'
+          }`,
         },
       }}
     />

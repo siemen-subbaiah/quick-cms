@@ -15,6 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import Image from 'next/image';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -69,7 +70,17 @@ export function DataTable<TData, TValue>({
           ) : (
             <TableRow>
               <TableCell colSpan={columns.length} className='h-24 text-center'>
-                No fields found for this page
+                <section className='flex flex-col items-center justify-center'>
+                  <Image
+                    src='/empty-table-state.svg'
+                    alt='empty-state'
+                    width='280'
+                    height='280'
+                  />
+                  <p className='mt-5 mb-2 text-[18px]'>
+                    Your table is empty! Click Add Fields to fill it up
+                  </p>
+                </section>
               </TableCell>
             </TableRow>
           )}
