@@ -8,9 +8,12 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import React from 'react';
+import { MdOutlineLogout } from 'react-icons/md';
 
 export const metadata: Metadata = {
   title: 'Settings',
@@ -61,7 +64,19 @@ const SettingsPage = async () => {
         </div>
         <section>
           <CopyAPIKey apiKey={session?.user?.apiKey} />
+          <div className='grid w-1/4 items-center gap-4'>
+            <div className='flex flex-col space-y-1.5'>
+              <Label htmlFor='username'>Username</Label>
+              <Input id='username' value={session?.user?.name} disabled />
+            </div>
+            <div className='flex flex-col space-y-1.5 mt-2'>
+              <Label htmlFor='email'>Email</Label>
+              <Input id='email' value={session?.user?.email} disabled />
+            </div>
+          </div>
+
           <form
+            className='my-4'
             action={async () => {
               'use server';
               await signOut({
@@ -69,7 +84,9 @@ const SettingsPage = async () => {
               });
             }}
           >
-            <Button type='submit'>Sign Out</Button>
+            <Button variant='destructive' type='submit'>
+              <MdOutlineLogout className='h-5 w-5' /> Sign Out
+            </Button>
           </form>
         </section>
       </section>

@@ -25,7 +25,13 @@ const CopyAPIKey = ({ apiKey }: { apiKey: string }) => {
     <section className='flex gap-2 items-center my-5'>
       <div className='flex flex-col space-y-1.5'>
         <Label htmlFor='apiKey'>API Key</Label>
-        <Input type='text' id='apiKey' value={apiKey} disabled />
+        <Input
+          className='w-[264px]'
+          type='text'
+          id='apiKey'
+          value={apiKey}
+          disabled
+        />
       </div>
       <Button
         variant='outline'
