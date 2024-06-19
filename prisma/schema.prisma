@@ -23,6 +23,7 @@ model User {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   apiKey        String?
+  password      String?
 }
 
 model Account {

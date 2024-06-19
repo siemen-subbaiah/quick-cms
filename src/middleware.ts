@@ -2,8 +2,8 @@ import { auth } from '@/auth';
 
 export default auth((req) => {
   if (
-    req.nextUrl.pathname === '/' ||
-    (req.nextUrl.pathname === '/test-user' && req.auth)
+    (req.nextUrl.pathname === '/' || req.nextUrl.pathname === '/test-user') &&
+    req.auth
   ) {
     return Response.redirect(new URL('/app', req.url));
   }
