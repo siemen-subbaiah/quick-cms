@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge';
 import { randomBytes } from 'crypto';
 import { auth } from '@/auth';
 import prisma from '@/config/db';
-import { Page } from '@/types';
+import { Page } from '@/types/enums';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

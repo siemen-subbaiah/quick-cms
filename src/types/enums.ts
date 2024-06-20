@@ -7,3 +7,7 @@ export enum FieldType {
   Date = 6,
   Image = 7,
 }
+
+export interface Page extends PageBuilder {
+  fields: Field[];
+}

@@ -50,7 +50,3 @@ interface StateField {
   isRequired: boolean;
   isShortText: boolean | null;
 }
-
-export interface Page extends PageBuilder {
-  fields: Field[];
-}
