@@ -3,6 +3,7 @@ import { twMerge } from 'tailwind-merge';
 import { randomBytes } from 'crypto';
 import { auth } from '@/auth';
 import prisma from '@/config/db';
+import { Page } from '@/types';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -25,6 +26,29 @@ export const debounce = (func: any, delay: number) => {
     }, delay);
   };
 };
+
+export const barGraphData = (pages: Page[]) => {
+  const pagesFields = pages.map((page) => {
+    return {
+      name: page.apiName,
+      data: page.fields.length,
+    };
+  });
+
+  const fieldsCount = pagesFields.map((page) => page.data);
+
+  return {
+    series: [
+      {
+        name: 'fields',
+        data: fieldsCount,
+      },
+    ],
+    xAxisLabels: pagesFields.map((page) => page.name),
+  };
+};
+
+// queries
 
 export const listPages = async () => {
   const session = await auth();
@@ -65,6 +89,19 @@ export const listWebHooks = async () => {
   const pages = await prisma.webHook.findMany({
     where: {
       createdUserId: session?.user?.id,
+    },
+  });
+  return pages;
+};
+
+export const listPagesWithFields = async () => {
+  const session = await auth();
+  const pages = await prisma.page.findMany({
+    where: {
+      createdUserId: session?.user?.id,
+    },
+    include: {
+      fields: true,
     },
   });
   return pages;
