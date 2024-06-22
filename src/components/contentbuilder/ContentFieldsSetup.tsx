@@ -424,7 +424,7 @@ const ContentFieldsSetup = ({
         );
       })}
       <section className='flex justify-end gap-2'>
-        <Link href='/app/page-builder'>
+        <Link href={`/app/page-builder/${page.apiName}/${page.id}`}>
           <Button variant='link'>Edit Fields</Button>
         </Link>
         <Button

@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import Chart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 import { notFound } from 'next/navigation';
+import { useTheme } from 'next-themes';
 
 const BarChart = ({
   xAxisLabels,
@@ -13,6 +14,8 @@ const BarChart = ({
   xAxisLabels: string[];
   series: { name: string; data: number[] }[];
 }) => {
+  const { resolvedTheme } = useTheme();
+
   const options: ApexOptions = {
     chart: {
       type: 'bar',
@@ -42,13 +45,15 @@ const BarChart = ({
       categories: xAxisLabels,
       labels: {
         style: {
-          colors: xAxisLabels.map((val) => '#fafafa'),
+          colors: xAxisLabels.map((val) =>
+            resolvedTheme === 'dark' ? '#fafafa' : '020817'
+          ),
         },
       },
       title: {
         text: 'Pages',
         style: {
-          color: '#fafafa',
+          color: resolvedTheme === 'dark' ? '#fafafa' : '020817',
           fontSize: '12px',
           fontFamily: '"Noto Sans", sans-serif',
           fontWeight: 600,
@@ -60,7 +65,7 @@ const BarChart = ({
       title: {
         text: 'Fields Count',
         style: {
-          color: '#fafafa',
+          color: resolvedTheme === 'dark' ? '#fafafa' : '020817',
           fontSize: '12px',
           fontFamily: '"Noto Sans", sans-serif',
           fontWeight: 600,
@@ -69,7 +74,7 @@ const BarChart = ({
       },
       labels: {
         style: {
-          colors: ['#fafafa'],
+          colors: [resolvedTheme === 'dark' ? '#fafafa' : '020817'],
         },
       },
     },
@@ -85,7 +90,7 @@ const BarChart = ({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Fields Count</CardTitle>
+        <h2 className='text-xl'>Fields Count</h2>
       </CardHeader>
       <CardContent>
         <Chart options={options} series={series} type='bar' height={350} />

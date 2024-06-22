@@ -77,7 +77,7 @@ export function DataTable<TData, TValue>({
                     width='280'
                     height='280'
                   />
-                  <p className='mt-5 mb-2 text-[18px]'>
+                  <p className='mt-5 text-sm mb-2 text-[18px]'>
                     Your table is empty! Click Add Fields to fill it up
                   </p>
                 </section>

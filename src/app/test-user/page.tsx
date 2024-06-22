@@ -1,5 +1,6 @@
 'use client';
 
+import Logo from '@/components/Logo';
 import MyToast from '@/components/MyToast';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
@@ -45,13 +46,7 @@ const TestUserPage = () => {
         <Card className='w-1/4'>
           <CardHeader>
             <section className='flex justify-center'>
-              <Image
-                src='/logo.svg'
-                alt='logo'
-                width='70'
-                height='70'
-                className='mb-3'
-              />
+              <Logo width={120} height={120} />
             </section>
             <p className='text-xl text-center'>Login as test user</p>
           </CardHeader>

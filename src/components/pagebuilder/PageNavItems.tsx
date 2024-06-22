@@ -2,7 +2,6 @@
 
 import React from 'react';
 import {
-  MdOutlineAccountCircle,
   MdOutlineBuildCircle,
   MdOutlineHome,
   MdSettings,
@@ -14,7 +13,7 @@ import { useTheme } from 'next-themes';
 
 const PageNavItems = () => {
   const pathname = usePathname();
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
 
   return (
     <div className='my-2 flex flex-col'>
@@ -24,7 +23,7 @@ const PageNavItems = () => {
           className={`${
             pathname === '/app'
               ? 'text-primary'
-              : theme === 'dark' || theme === 'system'
+              : resolvedTheme === 'dark'
               ? 'text-white'
               : 'text-dark'
           } relative right-4 `}
@@ -39,7 +38,7 @@ const PageNavItems = () => {
           className={`${
             pathname.includes('page-builder')
               ? 'text-primary'
-              : theme === 'dark' || theme === 'system'
+              : resolvedTheme === 'dark'
               ? 'text-white'
               : 'text-dark'
           } relative right-4 `}
@@ -54,7 +53,7 @@ const PageNavItems = () => {
           className={`${
             pathname.includes('/settings')
               ? 'text-primary'
-              : theme === 'dark' || theme === 'system'
+              : resolvedTheme === 'dark'
               ? 'text-white'
               : 'text-dark'
           } relative right-4`}

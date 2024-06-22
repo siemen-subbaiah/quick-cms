@@ -2,6 +2,7 @@ import { auth } from '@/auth';
 import APIPermissions from '@/components/settings/APIPermissions';
 import { listPages } from '@/lib/utils';
 import { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { MdArrowBackIos } from 'react-icons/md';
@@ -32,13 +33,27 @@ const APIPermissionsPage = async () => {
         can view and manage your page content via the API.
       </p>
       <div className='my-5'>
-        {pages.map((page) => (
-          <APIPermissions
-            key={page.id}
-            page={page}
-            apiKey={session?.user.apiKey}
-          />
-        ))}
+        {pages.length >= 1 ? (
+          pages.map((page) => (
+            <APIPermissions
+              key={page.id}
+              page={page}
+              apiKey={session?.user.apiKey}
+            />
+          ))
+        ) : (
+          <section className='flex mt-32 flex-col items-center justify-center'>
+            <Image
+              src='/empty-table-state.svg'
+              alt='empty-state'
+              width='280'
+              height='280'
+            />
+            <p className='mt-5 text-sm mb-2 text-[18px]'>
+              API Permissions are empty, add some pages to see data here
+            </p>
+          </section>
+        )}
       </div>
     </section>
   );

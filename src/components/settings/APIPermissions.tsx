@@ -55,7 +55,9 @@ const APIPermissions = ({ page, apiKey }: { page: Page; apiKey: string }) => {
 
   const handleAPICopy = (apiName: string) => {
     navigator.clipboard
-      .writeText(`/api/${apiName}?apiKey=${apiKey}`)
+      .writeText(
+        `${process.env.NEXT_PUBLIC_URL}/api/${apiName}?apiKey=${apiKey}`
+      )
       .then(() => {
         toast('API Endpoint copied to clipboard!');
       })

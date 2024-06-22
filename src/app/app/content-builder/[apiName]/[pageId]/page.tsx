@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { capitalize, getPage, listPageFields, listWebHooks } from '@/lib/utils';
 import { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { MdArrowBackIos } from 'react-icons/md';
@@ -45,11 +46,33 @@ const ContentBuilderPage = async ({
           <section className='my-5'>
             <Card>
               <CardContent>
-                <ContentFieldsSetup
-                  fields={fields}
-                  webHooks={webHooks}
-                  page={page}
-                />
+                {fields.length >= 1 ? (
+                  <ContentFieldsSetup
+                    fields={fields}
+                    webHooks={webHooks}
+                    page={page}
+                  />
+                ) : (
+                  <section className='p-5 flex flex-col items-center justify-center'>
+                    <Image
+                      src='/empty-table-state.svg'
+                      alt='empty-state'
+                      width='280'
+                      height='280'
+                    />
+                    <p className='text-sm mt-5 mb-2 text-[18px]'>
+                      There are no fields added to {page.displayName} yet, add
+                      atleast one field to fill content
+                    </p>
+                    <Button variant='link'>
+                      <Link
+                        href={`/app/page-builder/${page.apiName}/${page.id}`}
+                      >
+                        Add Field
+                      </Link>
+                    </Button>
+                  </section>
+                )}
               </CardContent>
             </Card>
           </section>

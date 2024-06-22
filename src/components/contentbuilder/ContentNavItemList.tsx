@@ -3,12 +3,11 @@
 import Link from 'next/link';
 import React from 'react';
 import { Button } from '../ui/button';
-import { Page } from '@prisma/client';
 import { useTheme } from 'next-themes';
 import { usePathname } from 'next/navigation';
 
-const ContentNavItemList = ({ page }: { page: Page }) => {
-  const { theme } = useTheme();
+const ContentNavItemList = ({ page }: { page: any }) => {
+  const { resolvedTheme } = useTheme();
   const pathname = usePathname();
 
   return (
@@ -21,7 +20,7 @@ const ContentNavItemList = ({ page }: { page: Page }) => {
         className={`${
           pathname === `/app/content-builder/${page.apiName}/${page.id}`
             ? 'text-primary'
-            : theme === 'dark' || theme === 'system'
+            : resolvedTheme === 'dark'
             ? 'text-white'
             : 'text-dark'
         } relative right-4`}

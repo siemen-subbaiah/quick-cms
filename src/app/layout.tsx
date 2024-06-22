@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Noto_Sans } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
+import Logo from '@/components/Logo';
 
 const notoSans = Noto_Sans({ subsets: ['latin'] });
 
@@ -42,7 +43,13 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <section className='hidden md:block'>{children}</section>
+          <section className='md:hidden p-4 flex flex-col items-center justify-center h-screen'>
+            <Logo height={120} width={120} />
+            <p className='text-center'>
+              This webapp is best viewed on laptop/desktop screens
+            </p>
+          </section>
         </ThemeProvider>
       </body>
     </html>

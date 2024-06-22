@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { barGraphData, listPagesWithFields } from '@/lib/utils';
 import { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
@@ -25,30 +26,66 @@ const AppPage = async () => {
         <CardHeader>
           <div className='flex justify-between items-center'>
             <h2 className='text-xl'>Enabled APIs</h2>
-            <Link href='/settings/api-permissions'>
+            <Link href='/app/settings/api-permissions'>
               <Button variant='link'>API Permissions</Button>
             </Link>
           </div>
           <Separator />
         </CardHeader>
-        <CardContent className='grid grid-cols-3'>
-          {enabledAPIs.map((item) => {
-            return (
-              <Card key={item.id} className='w-[350px] my-2'>
-                <CardHeader>
-                  <CardTitle className='text-2xl'>
-                    {item.displayName}{' '}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p>API ID : {item.apiName}</p>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </CardContent>
+        {enabledAPIs.length >= 1 ? (
+          <CardContent className='grid grid-cols-3 gap-5'>
+            {enabledAPIs.map((item) => {
+              return (
+                <Card key={item.id} className='w-[350px] my-2'>
+                  <CardHeader>
+                    <CardTitle className='text-2xl'>
+                      {item.displayName}{' '}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p>API ID : {item.apiName}</p>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </CardContent>
+        ) : (
+          <section className='flex flex-col items-center justify-center'>
+            <Image
+              src='/empty-widget-state.svg'
+              alt='empty-state'
+              width='280'
+              height='280'
+            />
+            <p className='text-sm mb-5 text-[18px]'>
+              Wondering why its empty? Click the API permissions button to learn
+              more.
+            </p>
+          </section>
+        )}
       </Card>
-      <BarChart series={series} xAxisLabels={xAxisLabels} />
+      {!series[0].data.includes(0) ? (
+        <BarChart series={series} xAxisLabels={xAxisLabels} />
+      ) : (
+        <Card>
+          <CardHeader>
+            <h2 className='text-xl'>Fields Count</h2>
+          </CardHeader>
+          <CardContent>
+            <section className='flex flex-col items-center justify-center'>
+              <Image
+                src='/empty-widget-state.svg'
+                alt='empty-state'
+                width='280'
+                height='280'
+              />
+              <p className='text-sm mb-5 text-[18px]'>
+                Add some pages and fields for the graph to pop up
+              </p>
+            </section>
+          </CardContent>
+        </Card>
+      )}
     </section>
   );
 };
