@@ -20,6 +20,14 @@ import RichText from '../RichText';
 import { CldImage, CldUploadWidget } from 'next-cloudinary';
 import { Card, CardContent } from '../ui/card';
 import { MdClose } from 'react-icons/md';
+import { HiSparkles } from 'react-icons/hi2';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '../ui/tooltip';
+import GenerateContentModal from './GenerateContentModal';
 
 const ContentFieldsSetup = ({
   fields,
@@ -221,7 +229,7 @@ const ContentFieldsSetup = ({
                 </div>
               )}
               {val.fieldType === FieldType.Text && !val.isShortText && (
-                <div className='flex flex-col space-y-1.5 my-7'>
+                <div className='flex flex-col space-y-1.5 my-7 relative'>
                   <Label htmlFor={val.fieldName}>
                     {val.fieldName}{' '}
                     {val.isRequired && <span className='text-red-500'>*</span>}
@@ -230,7 +238,10 @@ const ContentFieldsSetup = ({
                     id={val.fieldName}
                     value={val.value}
                     onChange={(e) => setterValue(val, e.target.value)}
+                    rows={6}
+                    cols={6}
                   />
+                  <GenerateContentModal />
                 </div>
               )}
               {val.fieldType === FieldType.Boolean && (
@@ -249,12 +260,13 @@ const ContentFieldsSetup = ({
                 </div>
               )}
               {val.fieldType === FieldType.RichText && (
-                <div className='flex flex-col space-y-1.5 my-7'>
+                <div className='flex flex-col space-y-1.5 my-7 relative'>
                   <Label htmlFor={val.fieldName}>
                     {val.fieldName}{' '}
                     {val.isRequired && <span className='text-red-500'>*</span>}
                   </Label>
                   <RichText field={val} setterValue={setterValue} />
+                  <GenerateContentModal />
                 </div>
               )}
               {val.fieldType === FieldType.Number && (

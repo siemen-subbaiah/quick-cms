@@ -8,12 +8,26 @@ import React from 'react';
 const Logo = ({ height, width }: { height: number; width: number }) => {
   const { resolvedTheme } = useTheme();
 
+  if (!resolvedTheme) {
+    return (
+      <Link href='/app'>
+        <Image
+          src='/logo.svg'
+          alt='dark-logo'
+          width={width}
+          height={height}
+          className='mb-5 mt-1 relative bottom-[3px]'
+        />
+      </Link>
+    );
+  }
+
   return (
     <Link href='/app'>
       {resolvedTheme === 'dark' ? (
         <Image
           src='/logo.svg'
-          alt='light-logo'
+          alt='dark-logo'
           width={width}
           height={height}
           className='mb-5 mt-1 relative bottom-[3px]'
@@ -21,7 +35,7 @@ const Logo = ({ height, width }: { height: number; width: number }) => {
       ) : (
         <Image
           src='/logo-2.svg'
-          alt='dark-logo'
+          alt='light-logo'
           width={width}
           height={height}
           className='mb-5 mt-1 relative bottom-[3px]'

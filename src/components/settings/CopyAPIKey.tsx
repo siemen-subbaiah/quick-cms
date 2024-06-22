@@ -6,6 +6,12 @@ import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { MdContentCopy } from 'react-icons/md';
 import toast from 'react-hot-toast';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '../ui/tooltip';
 
 const CopyAPIKey = ({ apiKey }: { apiKey: string }) => {
   const [textToCopy, setTextToCopy] = useState(apiKey);
@@ -33,14 +39,21 @@ const CopyAPIKey = ({ apiKey }: { apiKey: string }) => {
           disabled
         />
       </div>
-      <Button
-        variant='outline'
-        size='icon'
-        onClick={handleCopy}
-        className='relative top-2'
-      >
-        <MdContentCopy className='w-4 h-4' />
-      </Button>
+      <TooltipProvider>
+        <Tooltip>
+          <Button
+            variant='outline'
+            size='icon'
+            onClick={handleCopy}
+            className='relative top-2'
+          >
+            <TooltipTrigger>
+              <MdContentCopy className='w-4 h-4' />
+              <TooltipContent>Copy API Key</TooltipContent>
+            </TooltipTrigger>
+          </Button>
+        </Tooltip>
+      </TooltipProvider>
     </section>
   );
 };

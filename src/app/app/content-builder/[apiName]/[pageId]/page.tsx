@@ -1,3 +1,4 @@
+import BackButton from '@/components/BackButton';
 import ContentFieldsSetup from '@/components/contentbuilder/ContentFieldsSetup';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -6,7 +7,6 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { MdArrowBackIos } from 'react-icons/md';
 
 export async function generateMetadata({
   params,
@@ -35,14 +35,12 @@ const ContentBuilderPage = async ({
           <div className='flex justify-between items-center'>
             <div className='flex gap-6 items-center'>
               <div className='flex gap-3 items-center'>
-                <Link href='/app'>
-                  <MdArrowBackIos className='h-6 w-6' />
-                </Link>
+                <BackButton />
                 <h1 className='text-2xl'>{page?.displayName}</h1>
               </div>
             </div>
           </div>
-          <p className='mt-2 ml-9 text-sm'>{page?.description}</p>
+          <p className='mt-2 ml-12 text-sm'>{page?.description}</p>
           <section className='my-5'>
             <Card>
               <CardContent>

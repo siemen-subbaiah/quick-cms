@@ -4,14 +4,11 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from './ui/resizable';
-import Link from 'next/link';
-import Image from 'next/image';
 import ContentNavItems from './contentbuilder/ContentNavItems';
 import PageNavItems from './pagebuilder/PageNavItems';
 import { ModeToggle } from './ThemeToggle';
 import ContentHeading from './contentbuilder/ContentHeading';
 import { ScrollArea } from './ui/scroll-area';
-import { Separator } from './ui/separator';
 import Logo from './Logo';
 
 const SideBar = () => {
@@ -22,7 +19,6 @@ const SideBar = () => {
           <Logo width={120} height={120} />
           <ModeToggle />
         </section>
-        <Separator />
         <ResizablePanel defaultSize={50}>
           <ContentHeading />
           <ScrollArea className='h-72'>

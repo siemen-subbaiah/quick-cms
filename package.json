@@ -39,6 +39,7 @@
     "next-auth": "^5.0.0-beta.18",
     "next-cloudinary": "^6.6.2",
     "next-themes": "^0.3.0",
+    "openai": "^4.52.0",
     "react": "^18",
     "react-apexcharts": "^1.4.1",
     "react-day-picker": "^8.10.1",
