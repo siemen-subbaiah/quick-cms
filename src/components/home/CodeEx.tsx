@@ -3,7 +3,7 @@ import React from 'react';
 
 const CodeEx = () => {
   return (
-    <section className='my-5 flex justify-center items-center gap-5'>
+    <section className='my-5 p-10 flex justify-center items-center gap-10'>
       <p className='text-3xl w-1/3'>
         Generate REST APIs for pages and consume from any client
       </p>

@@ -8,7 +8,7 @@ import {
 const Features = () => {
   return (
     <div className='mt-5'>
-      <h1 className='text-4xl text-center relative top-10'>Features</h1>
+      <h1 className='text-4xl text-center relative top-2'>Features</h1>
       <section className='grid grid-cols-3'>
         <div className='flex py-10 items-center justify-center antialiased'>
           <GlowingStarsBackgroundCard>
