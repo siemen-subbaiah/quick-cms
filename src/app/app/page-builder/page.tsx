@@ -22,7 +22,7 @@ const PageBuilderPage = async () => {
         <GlobalDrawer launchMode='create' />
       </div>
       {pages.length >= 1 ? (
-        <section className='my-7 grid grid-cols-3'>
+        <section className='mt-3 flex flex-wrap gap-5'>
           {pages.map((page) => (
             <PageList pageProps={page} key={page.id} />
           ))}

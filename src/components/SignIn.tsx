@@ -49,7 +49,7 @@ export function SignIn() {
             />
             <path fill='none' d='M0 0h48v48H0z' />
           </svg>
-          <span>Sign in with Google</span>
+          <span>{!loading ? 'Sign in with Google' : 'Loading...'}</span>
         </div>
         <span className='absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-emerald-400/0 via-emerald-400/90 to-emerald-400/0 transition-opacity duration-500 group-hover:opacity-40' />
       </button>

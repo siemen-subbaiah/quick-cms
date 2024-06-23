@@ -4,7 +4,6 @@ import { DataTable } from '@/components/settings/webhooks-table/DataTable';
 import { columns } from '@/components/settings/webhooks-table/columns';
 import { listWebHooks } from '@/lib/utils';
 import { Metadata } from 'next';
-import Link from 'next/link';
 import React from 'react';
 
 export const metadata: Metadata = {

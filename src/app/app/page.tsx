@@ -19,6 +19,10 @@ const AppPage = async () => {
   const enabledAPIs = pages.filter((page) => page.isAPIPublished);
   const { series, xAxisLabels } = barGraphData(pages);
 
+  const isGraphEmpty = series.every((item) =>
+    item.data.every((value) => value === 0)
+  );
+
   return (
     <section className='my-5'>
       <h1 className='text-2xl'>Home</h1>
@@ -33,7 +37,7 @@ const AppPage = async () => {
           <Separator />
         </CardHeader>
         {enabledAPIs.length >= 1 ? (
-          <CardContent className='grid grid-cols-3 gap-5'>
+          <CardContent className='flex flex-wrap gap-5'>
             {enabledAPIs.map((item) => {
               return (
                 <Card key={item.id} className='w-[350px] my-2'>
@@ -64,7 +68,7 @@ const AppPage = async () => {
           </section>
         )}
       </Card>
-      {!series[0].data.includes(0) ? (
+      {!isGraphEmpty ? (
         <BarChart series={series} xAxisLabels={xAxisLabels} />
       ) : (
         <Card>
