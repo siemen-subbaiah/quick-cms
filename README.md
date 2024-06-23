@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Quick CMS
 
-## Getting Started
+Quick CMS is a headless CMS to store, retrive content for landing pages.
+This web app has one of the easiest and fastest headless CMS setups.
 
-First, run the development server:
+[Demo](https://quickcms.vercel.app)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+![twitter-img](https://github.com/siemen-subbaiah/quick-cms/assets/62604902/7f928b28-a3d4-4179-9d4e-7b37b4d2124c)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+![quickcms-capture1](https://github.com/siemen-subbaiah/quick-cms/assets/62604902/fb1ba27c-913d-4142-ba22-b7328d7e699e)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+![quickcms-capture2](https://github.com/siemen-subbaiah/quick-cms/assets/62604902/1db7c794-33d7-4fc8-a5b6-81c8d39f2b27)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+![quickcms-capture3](https://github.com/siemen-subbaiah/quick-cms/assets/62604902/811272e0-6462-4221-ac10-3b6058f662fd)
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Features 
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Login/Signup through Google
+- Adding individual pages
+- Configuring fields for pages
+- Adding content for pages
+- Publishing pages as API endpoints
+- REST API endpoints for all pages
+- Webhooks support for netlify and vercel
+- AI content generation
 
-## Deploy on Vercel
+## Tech Stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Frontend - Next.js, Tailwind CSS, shadcn
+- Backend -  Cockroachdb, Prisma, Next Auth (Auth.js)
