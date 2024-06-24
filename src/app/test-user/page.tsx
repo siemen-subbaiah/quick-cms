@@ -7,7 +7,6 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { signIn } from 'next-auth/react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
@@ -26,7 +25,6 @@ const TestUserPage = () => {
     const password = formData.get('password');
 
     const result = await signIn('credentials', {
-      redirect: false,
       email,
       password,
     });
